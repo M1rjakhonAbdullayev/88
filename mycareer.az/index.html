@@ -1,0 +1,1637 @@
+  <!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MyCareer.az — iş axtarışı saytı. Bakıda və Azərbaycanda iş elanları, vakansiyalar və CV-lər." />
+  <meta name="keywords" content="iş Bakı, работа в Баку, работа в Азербайджане, vakansiya, вакансии Азербайджан, iş axtarışı" />
+  <title>MyCareer.az — İş axtarışı | Работа в Азербайджане</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Syne (display) + Manrope (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <script>
+    /* ─── Tailwind Design Token Config ───────────────────────────── */
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#f0f7ff',
+              100: '#e0effe',
+              200: '#bae0fd',
+              300: '#7cc7fb',
+              400: '#36aaf5',
+              500: '#0d90e0',
+              600: '#0170bf',
+              700: '#01599b',
+              800: '#064c80',
+              900: '#0b406a',
+              950: '#072840',
+            },
+            accent: {
+              300: '#fde68a',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+            surface: {
+              0:   '#ffffff',
+              50:  '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              800: '#1e293b',
+              900: '#0f172a',
+            }
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body:    ['Manrope', 'sans-serif'],
+          },
+          boxShadow: {
+            'card':    '0 2px 12px 0 rgba(1,112,191,0.07), 0 1px 3px 0 rgba(0,0,0,0.06)',
+            'card-lg': '0 8px 32px 0 rgba(1,112,191,0.12), 0 2px 8px 0 rgba(0,0,0,0.08)',
+            'vip':     '0 0 0 2px #f59e0b, 0 4px 24px rgba(245,158,11,0.15)',
+          },
+          animation: {
+            'fade-up':    'fadeUp 0.5s ease both',
+            'fade-in':    'fadeIn 0.4s ease both',
+            'slide-down': 'slideDown 0.3s ease both',
+            'pulse-soft': 'pulseSoft 2.5s ease-in-out infinite',
+            'shimmer':    'shimmer 1.8s linear infinite',
+          },
+          keyframes: {
+            fadeUp:    { from:{ opacity:0, transform:'translateY(18px)' }, to:{ opacity:1, transform:'translateY(0)' } },
+            fadeIn:    { from:{ opacity:0 }, to:{ opacity:1 } },
+            slideDown: { from:{ opacity:0, transform:'translateY(-8px)' }, to:{ opacity:1, transform:'translateY(0)' } },
+            pulseSoft: { '0%,100%':{ opacity:1 }, '50%':{ opacity:.65 } },
+            shimmer:   { from:{ backgroundPosition:'200% 0' }, to:{ backgroundPosition:'-200% 0' } },
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ══════════════════════════════════════════════
+       GLOBAL RESET & BASE
+    ══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-family: 'Manrope', sans-serif; }
+    body { margin: 0; background: #f8fafc; color: #1e293b; overflow-x: hidden; }
+
+    /* ══════════════════════════════════════════════
+       CSS CUSTOM PROPERTIES (Design Tokens)
+    ══════════════════════════════════════════════ */
+    :root {
+      --c-brand:   #0170bf;
+      --c-brand-d: #01599b;
+      --c-accent:  #f59e0b;
+      --c-vip:     #f59e0b;
+      --c-bg:      #f8fafc;
+      --c-white:   #ffffff;
+      --c-text:    #1e293b;
+      --c-muted:   #64748b;
+      --c-border:  #e2e8f0;
+      --radius-card: 14px;
+      --radius-btn:  8px;
+      --transition: 0.22s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ══════════════════════════════════════════════
+       TYPOGRAPHY
+    ══════════════════════════════════════════════ */
+    h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; line-height: 1.18; }
+
+    /* ══════════════════════════════════════════════
+       HERO BACKGROUND MESH
+    ══════════════════════════════════════════════ */
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 30%, rgba(1,112,191,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 10% 70%, rgba(245,158,11,.08) 0%, transparent 60%),
+        linear-gradient(135deg, #072840 0%, #01599b 55%, #0170bf 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content:'';
+      position:absolute; inset:0;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0px, rgba(255,255,255,.03) 1px, transparent 1px, transparent 60px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0px, rgba(255,255,255,.03) 1px, transparent 1px, transparent 60px);
+      pointer-events:none;
+    }
+
+    /* ══════════════════════════════════════════════
+       SEARCH BOX
+    ══════════════════════════════════════════════ */
+    .search-wrap {
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.18), 0 2px 8px rgba(0,0,0,.1);
+    }
+    .search-input {
+      border: none; outline: none; background: transparent;
+      font-family: 'Manrope', sans-serif; font-size: 15px; color: #1e293b;
+      width: 100%;
+    }
+    .search-input::placeholder { color: #94a3b8; }
+    .search-divider { width:1px; height:32px; background:#e2e8f0; flex-shrink:0; }
+
+    .btn-primary {
+      background: var(--c-brand);
+      color: #fff;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 600;
+      border-radius: var(--radius-btn);
+      border: none; cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-primary:hover {
+      background: var(--c-brand-d);
+      box-shadow: 0 4px 16px rgba(1,112,191,.3);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-outline {
+      border: 2px solid var(--c-brand);
+      color: var(--c-brand);
+      background: transparent;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 600;
+      border-radius: var(--radius-btn);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-outline:hover { background: var(--c-brand); color: #fff; }
+
+    /* ══════════════════════════════════════════════
+       CARDS
+    ══════════════════════════════════════════════ */
+    .card {
+      background: #fff;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card, 0 2px 12px 0 rgba(1,112,191,.07));
+      border: 1px solid var(--c-border);
+      transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+      overflow: hidden;
+    }
+    .card:hover {
+      box-shadow: 0 8px 32px rgba(1,112,191,.14);
+      transform: translateY(-3px);
+      border-color: rgba(1,112,191,.18);
+    }
+
+    .card-vip {
+      border: 2px solid var(--c-vip);
+      box-shadow: 0 0 0 0 rgba(245,158,11,0), 0 4px 20px rgba(245,158,11,.1);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .card-vip:hover {
+      box-shadow: 0 0 0 2px #f59e0b, 0 8px 32px rgba(245,158,11,.18);
+      transform: translateY(-3px);
+    }
+
+    .vip-badge {
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      color: #fff;
+      font-size: 10px; font-weight: 700; letter-spacing:.8px;
+      padding: 2px 8px; border-radius: 20px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(245,158,11,.4);
+    }
+    .boosted-badge {
+      background: linear-gradient(90deg, #0170bf, #36aaf5);
+      color: #fff;
+      font-size: 10px; font-weight: 700; letter-spacing:.8px;
+      padding: 2px 8px; border-radius: 20px;
+    }
+
+    /* ══════════════════════════════════════════════
+       COMPANY LOGO PLACEHOLDER
+    ══════════════════════════════════════════════ */
+    .logo-placeholder {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px;
+      color: #fff; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--c-brand) 0%, #36aaf5 100%);
+    }
+
+    /* ══════════════════════════════════════════════
+       CATEGORY PILL
+    ══════════════════════════════════════════════ */
+    .cat-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fff;
+      border: 1.5px solid var(--c-border);
+      border-radius: 40px;
+      padding: 8px 18px;
+      font-size: 13.5px; font-weight: 500; color: var(--c-text);
+      cursor: pointer; text-decoration: none;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .cat-pill:hover {
+      background: var(--c-brand);
+      color: #fff;
+      border-color: var(--c-brand);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(1,112,191,.22);
+    }
+    .cat-pill .count {
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 1px 7px;
+      font-size: 11px; font-weight: 600; color: var(--c-muted);
+      transition: all var(--transition);
+    }
+    .cat-pill:hover .count { background: rgba(255,255,255,.25); color:#fff; }
+
+    /* ══════════════════════════════════════════════
+       STAT COUNTER
+    ══════════════════════════════════════════════ */
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 28px;
+      background: linear-gradient(90deg, #0170bf, #36aaf5);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* ══════════════════════════════════════════════
+       BANNER SLOT
+    ══════════════════════════════════════════════ */
+    .banner-slot {
+      background: linear-gradient(135deg, #e0effe 0%, #bae0fd 100%);
+      border: 2px dashed #7cc7fb;
+      border-radius: 12px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-size: 13px; color: #0170bf; font-weight: 600;
+      min-height: 90px; text-align: center;
+      cursor: pointer; transition: all var(--transition);
+      text-decoration: none;
+      position: relative; overflow: hidden;
+    }
+    .banner-slot:hover { background: linear-gradient(135deg, #bae0fd 0%, #7cc7fb 50%); }
+    .banner-slot.filled { border: none; background: none; }
+    .banner-slot.filled img { width:100%; height:100%; object-fit:cover; border-radius:12px; }
+
+    /* ══════════════════════════════════════════════
+       SECTION HEADER
+    ══════════════════════════════════════════════ */
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--c-brand);
+      margin-bottom: 8px;
+    }
+    .section-label::before {
+      content: '';
+      display: block; width: 18px; height: 3px;
+      background: var(--c-brand); border-radius: 2px;
+    }
+
+    /* ══════════════════════════════════════════════
+       TAG CHIP
+    ══════════════════════════════════════════════ */
+    .tag-chip {
+      display: inline-block;
+      background: #f1f5f9; color: #475569;
+      border-radius: 6px; padding: 2px 9px;
+      font-size: 11.5px; font-weight: 500;
+    }
+
+    /* ══════════════════════════════════════════════
+       LIKE BUTTON
+    ══════════════════════════════════════════════ */
+    .like-btn {
+      display: flex; align-items: center; gap: 4px;
+      background: none; border: 1.5px solid #e2e8f0;
+      border-radius: 8px; padding: 5px 10px;
+      cursor: pointer; transition: all var(--transition);
+      color: #94a3b8; font-size: 13px; font-weight: 500;
+    }
+    .like-btn:hover, .like-btn.liked {
+      border-color: #ef4444; color: #ef4444;
+      background: #fef2f2;
+    }
+    .like-btn.liked svg { fill: #ef4444; }
+
+    /* ══════════════════════════════════════════════
+       NAVBAR
+    ══════════════════════════════════════════════ */
+    .navbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid #e2e8f0;
+      transition: box-shadow var(--transition);
+    }
+    .navbar.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+
+    .nav-link {
+      font-size: 14px; font-weight: 500; color: #475569;
+      text-decoration: none; padding: 6px 4px;
+      position: relative; transition: color var(--transition);
+    }
+    .nav-link::after {
+      content: ''; position: absolute;
+      bottom: -1px; left: 0; right: 0; height: 2px;
+      background: var(--c-brand); border-radius: 1px;
+      transform: scaleX(0); transition: transform var(--transition);
+    }
+    .nav-link:hover { color: var(--c-brand); }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link.active { color: var(--c-brand); }
+    .nav-link.active::after { transform: scaleX(1); }
+
+    /* Language switcher */
+    .lang-btn {
+      font-size: 12px; font-weight: 700; letter-spacing: .5px;
+      padding: 4px 10px; border-radius: 6px;
+      cursor: pointer; transition: all var(--transition);
+      border: 1.5px solid transparent;
+    }
+    .lang-btn.active { border-color: var(--c-brand); color: var(--c-brand); background: #e0effe; }
+    .lang-btn:not(.active) { color: #94a3b8; }
+    .lang-btn:not(.active):hover { color: var(--c-brand); }
+
+    /* ══════════════════════════════════════════════
+       TABS
+    ══════════════════════════════════════════════ */
+    .tab-bar { display: flex; border-bottom: 2px solid #e2e8f0; gap: 0; }
+    .tab-btn {
+      padding: 10px 22px; font-size: 14px; font-weight: 600;
+      color: #64748b; cursor: pointer; border: none; background: none;
+      position: relative; transition: color var(--transition);
+      font-family: 'Manrope', sans-serif;
+    }
+    .tab-btn.active { color: var(--c-brand); }
+    .tab-btn.active::after {
+      content: ''; position: absolute;
+      bottom: -2px; left: 0; right: 0; height: 2px;
+      background: var(--c-brand); border-radius: 1px;
+    }
+    .tab-btn:hover:not(.active) { color: #1e293b; }
+
+    /* ══════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════ */
+    .footer-bg {
+      background: linear-gradient(165deg, #072840 0%, #0b406a 60%, #01599b 100%);
+    }
+
+    /* ══════════════════════════════════════════════
+       MOBILE MENU
+    ══════════════════════════════════════════════ */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(7,40,64,.97); backdrop-filter: blur(8px);
+      flex-direction: column; padding: 24px;
+      animation: fadeIn .25s ease;
+    }
+    .mobile-menu.open { display: flex; }
+
+    /* ══════════════════════════════════════════════
+       SCROLL ANIMATIONS
+    ══════════════════════════════════════════════ */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ══════════════════════════════════════════════
+       SELECT CUSTOM
+    ══════════════════════════════════════════════ */
+    .sel-custom {
+      appearance: none; background-color: #fff;
+      border: 1.5px solid #e2e8f0; border-radius: 8px;
+      padding: 9px 36px 9px 14px; font-size: 14px; font-weight: 500;
+      color: #1e293b; cursor: pointer; outline: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 10px center;
+      font-family: 'Manrope', sans-serif;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .sel-custom:focus { border-color: var(--c-brand); box-shadow: 0 0 0 3px rgba(1,112,191,.12); }
+
+    /* ══════════════════════════════════════════════
+       BLOG CARD
+    ══════════════════════════════════════════════ */
+    .blog-img {
+      width: 100%; height: 170px; object-fit: cover;
+      background: linear-gradient(135deg, #bae0fd, #7cc7fb);
+    }
+
+    /* ══════════════════════════════════════════════
+       TOOLTIP
+    ══════════════════════════════════════════════ */
+    [data-tip] { position: relative; }
+    [data-tip]::after {
+      content: attr(data-tip);
+      position: absolute; bottom: calc(100% + 6px); left: 50%;
+      transform: translateX(-50%) scale(.85);
+      background: #1e293b; color: #fff;
+      font-size: 11px; font-weight: 500; white-space: nowrap;
+      padding: 4px 8px; border-radius: 5px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s, transform .2s;
+      z-index: 100;
+    }
+    [data-tip]:hover::after { opacity: 1; transform: translateX(-50%) scale(1); }
+
+    /* ══════════════════════════════════════════════
+       RESPONSIVE HELPERS
+    ══════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .hide-mobile { display: none !important; }
+      .stat-num { font-size: 22px; }
+      .hero-bg h1 { font-size: 26px; }
+    }
+
+    /* ══════════════════════════════════════════════
+       SCROLLBAR
+    ══════════════════════════════════════════════ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--c-brand); }
+
+    /* ══════════════════════════════════════════════
+       STICKY SIDEBAR BANNER
+    ══════════════════════════════════════════════ */
+    .sidebar-sticky { position: sticky; top: 80px; }
+
+    /* ══════════════════════════════════════════════
+       NOTIFICATION BADGE
+    ══════════════════════════════════════════════ */
+    .notif-badge {
+      position: absolute; top: -4px; right: -4px;
+      background: #ef4444; color: #fff;
+      font-size: 10px; font-weight: 700;
+      width: 16px; height: 16px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid #fff;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     TOP BAR  (phone, email, social links, lang switcher)
+════════════════════════════════════════════════════════════ -->
+<div class="bg-brand-950 text-xs text-blue-200 hide-mobile">
+  <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-8 gap-4">
+    <!-- Left: contact -->
+    <div class="flex items-center gap-4">
+      <span class="flex items-center gap-1">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.07 11 19.79 19.79 0 011 2.4 2 2 0 012.96.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 7.91a16 16 0 006.29 6.29l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +994 (12) 000-00-00
+      </span>
+      <span class="flex items-center gap-1">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        info@mycareer.az
+      </span>
+    </div>
+    <!-- Right: social + lang -->
+    <div class="flex items-center gap-3">
+      <a href="#" class="hover:text-white transition-colors">Instagram</a>
+      <a href="#" class="hover:text-white transition-colors">Telegram</a>
+      <a href="#" class="hover:text-white transition-colors">Facebook</a>
+      <span class="w-px h-4 bg-blue-700"></span>
+      <button onclick="switchLang('az')" class="lang-btn" id="lang-az">AZ</button>
+      <button onclick="switchLang('ru')" class="lang-btn active" id="lang-ru">RU</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 flex-shrink-0" style="text-decoration:none">
+      <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#0170bf,#36aaf5)">
+        <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff">M</span>
+      </div>
+      <div>
+        <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:#0170bf;line-height:1">MyCareer</span>
+        <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:#f59e0b">.az</span>
+        <div style="font-size:9px;color:#94a3b8;font-weight:600;letter-spacing:.8px;margin-top:-2px">РАБОТА В АЗЕРБАЙДЖАНЕ</div>
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <div class="hidden md:flex items-center gap-5">
+      <a href="#vacancies" class="nav-link active" data-i18n="nav.vacancies">Вакансии</a>
+      <a href="#resumes"   class="nav-link"        data-i18n="nav.resumes">Резюме</a>
+      <a href="#companies" class="nav-link"        data-i18n="nav.companies">Компании</a>
+      <a href="#blog"      class="nav-link"        data-i18n="nav.blog">Статьи</a>
+      <a href="#pricing"   class="nav-link"        data-i18n="nav.pricing">Тарифы</a>
+    </div>
+
+    <!-- Right Actions -->
+    <div class="flex items-center gap-2">
+      <!-- Notification bell (for logged-in user) -->
+      <button class="relative w-9 h-9 rounded-lg flex items-center justify-center bg-surface-100 hover:bg-brand-50 transition-colors hide-mobile" data-tip="Уведомления">
+        <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-badge">3</span>
+      </button>
+
+      <a href="#" class="btn-outline text-sm px-4 py-2 hide-mobile" style="text-decoration:none" data-i18n="nav.login">Войти</a>
+
+      <a href="#" class="btn-primary text-sm px-4 py-2" style="text-decoration:none;display:inline-block" data-i18n="nav.post">
+        + Разместить
+      </a>
+
+      <!-- Mobile menu toggle -->
+      <button class="md:hidden w-9 h-9 rounded-lg flex items-center justify-center bg-surface-100" onclick="toggleMobileMenu()" id="menu-btn">
+        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" id="menu-icon">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="flex justify-between items-center mb-8">
+    <span style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff">MyCareer<span style="color:#f59e0b">.az</span></span>
+    <button onclick="toggleMobileMenu()" class="text-white">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col gap-4">
+    <a href="#vacancies" class="text-white text-lg font-semibold py-2 border-b border-blue-800" onclick="toggleMobileMenu()" data-i18n="nav.vacancies">Вакансии</a>
+    <a href="#resumes"   class="text-white text-lg font-semibold py-2 border-b border-blue-800" onclick="toggleMobileMenu()" data-i18n="nav.resumes">Резюме</a>
+    <a href="#companies" class="text-white text-lg font-semibold py-2 border-b border-blue-800" onclick="toggleMobileMenu()" data-i18n="nav.companies">Компании</a>
+    <a href="#blog"      class="text-white text-lg font-semibold py-2 border-b border-blue-800" onclick="toggleMobileMenu()" data-i18n="nav.blog">Статьи</a>
+  </div>
+  <div class="mt-auto flex gap-3">
+    <a href="#" class="btn-outline flex-1 py-3 text-center" style="color:#fff;border-color:#fff;text-decoration:none" data-i18n="nav.login">Войти</a>
+    <a href="#" class="btn-primary flex-1 py-3 text-center" style="text-decoration:none" data-i18n="nav.post">+ Разместить</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero-bg py-14 md:py-20 px-4">
+  <div class="max-w-4xl mx-auto text-center">
+
+    <!-- Tag line -->
+    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur text-white/90 text-xs font-semibold px-4 py-2 rounded-full mb-6 border border-white/15">
+      <span class="w-2 h-2 bg-accent-400 rounded-full" style="animation:pulseSoft 2s ease-in-out infinite"></span>
+      <span data-i18n="hero.tag">Азербайджан №1 сайт поиска работы</span>
+    </div>
+
+    <h1 class="text-white font-display font-extrabold text-4xl md:text-6xl leading-tight mb-4 animate-fade-up">
+      <span data-i18n="hero.h1a">Найдите работу</span><br/>
+      <span class="text-accent-400" data-i18n="hero.h1b">мечты в Баку</span>
+    </h1>
+    <p class="text-blue-200 text-base md:text-lg mb-10 max-w-2xl mx-auto animate-fade-up" style="animation-delay:.1s" data-i18n="hero.sub">
+      Тысячи вакансий и резюме. Быстрый поиск, лёгкий отклик, надёжный результат.
+    </p>
+
+    <!-- SEARCH BOX -->
+    <div class="search-wrap p-2 md:p-3 mb-4 animate-fade-up" style="animation-delay:.2s">
+      <div class="flex flex-col md:flex-row gap-2">
+        <!-- Keyword -->
+        <div class="flex items-center gap-2 flex-1 px-3 py-2">
+          <svg class="w-5 h-5 text-brand-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input class="search-input" type="text" placeholder="Должность, компания, ключевое слово..." data-i18n-placeholder="search.keyword" id="search-kw" />
+        </div>
+        <div class="search-divider hidden md:block"></div>
+        <!-- Category -->
+        <div class="flex items-center gap-2 px-3 py-2 min-w-[160px]">
+          <svg class="w-5 h-5 text-brand-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <select class="search-input" id="search-cat">
+            <option value="" data-i18n="search.allCats">Все категории</option>
+            <option>IT / Технологии</option>
+            <option>Финансы / Банк</option>
+            <option>Маркетинг / Реклама</option>
+            <option>Строительство</option>
+            <option>Медицина</option>
+            <option>Образование</option>
+            <option>Торговля / Продажи</option>
+            <option>Логистика</option>
+          </select>
+        </div>
+        <div class="search-divider hidden md:block"></div>
+        <!-- City -->
+        <div class="flex items-center gap-2 px-3 py-2 min-w-[140px]">
+          <svg class="w-5 h-5 text-brand-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+          <select class="search-input" id="search-city">
+            <option data-i18n="search.allCities">Весь Азербайджан</option>
+            <option>Баку</option>
+            <option>Гянджа</option>
+            <option>Сумгайыт</option>
+            <option>Мингячевир</option>
+            <option>Нахчыван</option>
+            <option>Ленкорань</option>
+          </select>
+        </div>
+        <!-- Search btn -->
+        <button class="btn-primary px-7 py-3 text-sm" onclick="doSearch()" data-i18n="search.btn">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Найти
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick tags -->
+    <div class="flex flex-wrap justify-center gap-2 animate-fade-up" style="animation-delay:.3s">
+      <span class="text-blue-200 text-xs mr-1 self-center" data-i18n="hero.popular">Популярное:</span>
+      <a href="#" class="text-xs bg-white/10 hover:bg-white/20 text-white border border-white/15 rounded-full px-3 py-1 transition-colors">Программист</a>
+      <a href="#" class="text-xs bg-white/10 hover:bg-white/20 text-white border border-white/15 rounded-full px-3 py-1 transition-colors">Бухгалтер</a>
+      <a href="#" class="text-xs bg-white/10 hover:bg-white/20 text-white border border-white/15 rounded-full px-3 py-1 transition-colors">Менеджер</a>
+      <a href="#" class="text-xs bg-white/10 hover:bg-white/20 text-white border border-white/15 rounded-full px-3 py-1 transition-colors">Водитель</a>
+      <a href="#" class="text-xs bg-white/10 hover:bg-white/20 text-white border border-white/15 rounded-full px-3 py-1 transition-colors">Врач</a>
+      <a href="#" class="text-xs bg-white/10 hover:bg-white/20 text-white border border-white/15 rounded-full px-3 py-1 transition-colors">Учитель</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     STATS BAR
+════════════════════════════════════════════════════════════ -->
+<div class="bg-white border-b border-surface-200 py-5">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 divide-x divide-surface-200">
+      <div class="text-center px-4">
+        <div class="stat-num" data-count="14820">14 820</div>
+        <div class="text-xs text-gray-400 font-medium mt-1" data-i18n="stats.vacancies">Активных вакансий</div>
+      </div>
+      <div class="text-center px-4">
+        <div class="stat-num" data-count="8450">8 450</div>
+        <div class="text-xs text-gray-400 font-medium mt-1" data-i18n="stats.resumes">Резюме</div>
+      </div>
+      <div class="text-center px-4">
+        <div class="stat-num" data-count="2310">2 310</div>
+        <div class="text-xs text-gray-400 font-medium mt-1" data-i18n="stats.companies">Компаний</div>
+      </div>
+      <div class="text-center px-4">
+        <div class="stat-num" data-count="94200">94 200</div>
+        <div class="text-xs text-gray-400 font-medium mt-1" data-i18n="stats.users">Зарегистрированных</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     TOP BANNER (728×90)
+════════════════════════════════════════════════════════════ -->
+<div class="max-w-7xl mx-auto px-4 py-4 flex justify-center">
+  <a href="#" class="banner-slot w-full max-w-3xl h-24" id="banner-top">
+    <span class="text-brand-500 font-semibold text-sm">📢 Баннер 728×90</span>
+    <span class="text-xs text-brand-400 mt-1">Нажмите для настройки через Admin</span>
+  </a>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     CATEGORIES
+════════════════════════════════════════════════════════════ -->
+<section class="max-w-7xl mx-auto px-4 py-8 reveal">
+  <div class="section-label" data-i18n="cats.label">Категории</div>
+  <h2 class="font-display font-bold text-2xl text-gray-800 mb-5" data-i18n="cats.h2">Поиск по категориям</h2>
+  <div class="flex flex-wrap gap-3" id="cat-list">
+    <!-- Generated by JS -->
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     MAIN CONTENT + SIDEBAR
+════════════════════════════════════════════════════════════ -->
+<div class="max-w-7xl mx-auto px-4 py-4">
+  <div class="flex gap-6">
+
+    <!-- ── MAIN COLUMN ── -->
+    <div class="flex-1 min-w-0">
+
+      <!-- ─── TABS: Vacancies / Resumes ─── -->
+      <div class="tab-bar mb-6" id="main-tabs">
+        <button class="tab-btn active" onclick="switchTab('vacancies', this)" data-i18n="tab.vacancies">Вакансии</button>
+        <button class="tab-btn" onclick="switchTab('resumes', this)" data-i18n="tab.resumes">Резюме</button>
+      </div>
+
+      <!-- ─── FILTER BAR ─── -->
+      <div class="flex flex-wrap gap-2 mb-5 items-center">
+        <select class="sel-custom text-sm" id="filter-type">
+          <option data-i18n="filter.all">Все типы</option>
+          <option data-i18n="filter.full">Полный день</option>
+          <option data-i18n="filter.part">Неполный день</option>
+          <option data-i18n="filter.remote">Удалённо</option>
+          <option data-i18n="filter.contract">Контракт</option>
+        </select>
+        <select class="sel-custom text-sm" id="filter-salary">
+          <option data-i18n="filter.salaryAny">Любая зарплата</option>
+          <option>300–600 AZN</option>
+          <option>600–1000 AZN</option>
+          <option>1000–2000 AZN</option>
+          <option>2000+ AZN</option>
+        </select>
+        <select class="sel-custom text-sm" id="filter-date">
+          <option data-i18n="filter.dateAny">Любое время</option>
+          <option data-i18n="filter.today">Сегодня</option>
+          <option data-i18n="filter.week">За неделю</option>
+          <option data-i18n="filter.month">За месяц</option>
+        </select>
+        <button class="btn-primary text-xs px-4 py-2" onclick="applyFilters()" data-i18n="filter.apply">Применить</button>
+        <span class="ml-auto text-xs text-gray-400" id="results-count">Найдено: 14 820 вакансий</span>
+      </div>
+
+      <!-- ─── VIP VACANCIES ─── -->
+      <div id="vacancies-panel">
+        <div class="section-label mb-3" data-i18n="vip.label">VIP объявления</div>
+
+        <div id="vip-jobs-list" class="grid gap-3 mb-8">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- BOOSTED JOBS label -->
+        <div class="section-label mb-3" data-i18n="boosted.label">Поднятые объявления</div>
+        <div id="boosted-jobs-list" class="grid gap-3 mb-8"></div>
+
+        <!-- LATEST JOBS label -->
+        <div class="flex items-center justify-between mb-3">
+          <div class="section-label" data-i18n="latest.label">Последние вакансии</div>
+          <a href="#" class="text-xs text-brand-600 font-semibold hover:underline" data-i18n="latest.all">Смотреть все →</a>
+        </div>
+        <div id="latest-jobs-list" class="grid gap-3 mb-6"></div>
+
+        <!-- Pagination -->
+        <div class="flex items-center justify-center gap-2 py-4" id="pagination">
+          <button class="w-9 h-9 rounded-lg border border-surface-200 flex items-center justify-center text-sm font-medium bg-white hover:bg-brand-50 hover:border-brand-300 hover:text-brand-600 transition-colors" onclick="changePage(currentPage-1)">‹</button>
+          <button class="w-9 h-9 rounded-lg border border-surface-200 flex items-center justify-center text-sm font-semibold bg-brand-600 text-white border-brand-600">1</button>
+          <button class="w-9 h-9 rounded-lg border border-surface-200 flex items-center justify-center text-sm font-medium bg-white hover:bg-brand-50 hover:border-brand-300 hover:text-brand-600 transition-colors" onclick="changePage(2)">2</button>
+          <button class="w-9 h-9 rounded-lg border border-surface-200 flex items-center justify-center text-sm font-medium bg-white hover:bg-brand-50 hover:border-brand-300 hover:text-brand-600 transition-colors" onclick="changePage(3)">3</button>
+          <span class="text-gray-400 text-sm px-1">...</span>
+          <button class="w-9 h-9 rounded-lg border border-surface-200 flex items-center justify-center text-sm font-medium bg-white hover:bg-brand-50 hover:border-brand-300 hover:text-brand-600 transition-colors" onclick="changePage(currentPage+1)">›</button>
+        </div>
+      </div>
+
+      <!-- ─── RESUMES PANEL (hidden by default) ─── -->
+      <div id="resumes-panel" class="hidden">
+        <div class="section-label mb-3" data-i18n="vip.label">VIP Резюме</div>
+        <div id="vip-resumes-list" class="grid gap-3 mb-8"></div>
+
+        <div class="section-label mb-3" data-i18n="latest.resumes">Последние резюме</div>
+        <div id="latest-resumes-list" class="grid gap-3 mb-6"></div>
+      </div>
+
+    </div><!-- /main col -->
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="w-72 flex-shrink-0 hidden lg:block">
+      <div class="sidebar-sticky flex flex-col gap-4">
+
+        <!-- Sidebar Banner 1 -->
+        <a href="#" class="banner-slot h-60 flex-col" id="banner-side-1">
+          <span class="text-brand-500 font-semibold text-sm">📢 Баннер</span>
+          <span class="text-xs text-brand-400 mt-1">300×250</span>
+        </a>
+
+        <!-- Quick Links Card -->
+        <div class="card p-4">
+          <h3 class="font-display font-bold text-sm text-gray-700 mb-3" data-i18n="sidebar.useful">Полезные ссылки</h3>
+          <div class="flex flex-col gap-2">
+            <a href="#" class="flex items-center gap-2 text-sm text-brand-600 hover:text-brand-800 font-medium transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span data-i18n="sidebar.howResume">Как составить резюме</span>
+            </a>
+            <a href="#" class="flex items-center gap-2 text-sm text-brand-600 hover:text-brand-800 font-medium transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span data-i18n="sidebar.salaryBaku">Зарплаты в Баку</span>
+            </a>
+            <a href="#" class="flex items-center gap-2 text-sm text-brand-600 hover:text-brand-800 font-medium transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              <span data-i18n="sidebar.interview">Советы по собеседованию</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Salary Calculator Teaser -->
+        <div class="card p-4 bg-gradient-to-br from-brand-50 to-blue-50">
+          <h3 class="font-display font-bold text-sm text-brand-800 mb-1">💰 Калькулятор зарплаты</h3>
+          <p class="text-xs text-brand-600 mb-3">Узнайте рыночную ставку для вашей специальности</p>
+          <button class="btn-primary text-xs px-4 py-2 w-full">Рассчитать</button>
+        </div>
+
+        <!-- Sidebar Banner 2 -->
+        <a href="#" class="banner-slot h-60 flex-col" id="banner-side-2">
+          <span class="text-brand-500 font-semibold text-sm">📢 Баннер</span>
+          <span class="text-xs text-brand-400 mt-1">300×250</span>
+        </a>
+
+      </div>
+    </aside>
+
+  </div><!-- /flex -->
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     VIP RESUMES SECTION (main page)
+════════════════════════════════════════════════════════════ -->
+<section class="max-w-7xl mx-auto px-4 py-8 reveal" id="resumes">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <div class="section-label" data-i18n="vip.resumesLabel">VIP Резюме</div>
+      <h2 class="font-display font-bold text-2xl text-gray-800" data-i18n="vip.resumesH2">Лучшие кандидаты</h2>
+    </div>
+    <a href="#" class="btn-outline text-sm px-4 py-2" style="text-decoration:none" data-i18n="all.resumes">Все резюме</a>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" id="vip-resumes-main"></div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     COMPANIES
+════════════════════════════════════════════════════════════ -->
+<section class="bg-white border-y border-surface-200 py-10 reveal" id="companies">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <div class="section-label" data-i18n="companies.label">Работодатели</div>
+        <h2 class="font-display font-bold text-2xl text-gray-800" data-i18n="companies.h2">Топ компании</h2>
+      </div>
+      <a href="#" class="text-sm text-brand-600 font-semibold hover:underline" data-i18n="companies.all">Все компании →</a>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" id="companies-list"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     MIDDLE BANNER (full-width)
+════════════════════════════════════════════════════════════ -->
+<div class="max-w-7xl mx-auto px-4 py-6 flex justify-center">
+  <a href="#" class="banner-slot w-full h-28" id="banner-mid">
+    <span class="text-brand-500 font-semibold">📢 Баннер 970×90</span>
+    <span class="text-xs text-brand-400 mt-1">Реклама / Спонсорский контент</span>
+  </a>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     BLOG / ARTICLES
+════════════════════════════════════════════════════════════ -->
+<section class="max-w-7xl mx-auto px-4 py-8 reveal" id="blog">
+  <div class="flex items-center justify-between mb-5">
+    <div>
+      <div class="section-label" data-i18n="blog.label">Статьи и новости</div>
+      <h2 class="font-display font-bold text-2xl text-gray-800" data-i18n="blog.h2">Карьерный блог</h2>
+    </div>
+    <a href="#" class="text-sm text-brand-600 font-semibold hover:underline" data-i18n="blog.all">Все статьи →</a>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="blog-list"></div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     APP DOWNLOAD CTA
+════════════════════════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal" style="background:linear-gradient(135deg,#072840,#0170bf)">
+  <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
+    <div class="flex-1 text-center md:text-left">
+      <h2 class="font-display font-extrabold text-white text-3xl md:text-4xl mb-3" data-i18n="app.h2">Скачайте приложение</h2>
+      <p class="text-blue-200 mb-6 text-base" data-i18n="app.sub">Ищите работу и публикуйте резюме прямо с телефона — на азербайджанском и русском</p>
+      <div class="flex gap-3 justify-center md:justify-start">
+        <a href="#" class="flex items-center gap-2 bg-white text-brand-900 font-semibold text-sm px-5 py-3 rounded-xl hover:bg-brand-50 transition-colors" style="text-decoration:none">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+        <a href="#" class="flex items-center gap-2 bg-white text-brand-900 font-semibold text-sm px-5 py-3 rounded-xl hover:bg-brand-50 transition-colors" style="text-decoration:none">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5a1 1 0 010 1.6l-14 8.5c-.66.5-1.6.03-1.6-.8z"/></svg>
+          Google Play
+        </a>
+      </div>
+    </div>
+    <!-- Phone mockup placeholder -->
+    <div class="w-44 h-72 rounded-3xl border-4 border-white/20 bg-white/10 flex items-center justify-center hide-mobile">
+      <svg class="w-16 h-16 text-white/40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     BOTTOM BANNER
+════════════════════════════════════════════════════════════ -->
+<div class="max-w-7xl mx-auto px-4 py-6 flex justify-center">
+  <a href="#" class="banner-slot w-full max-w-3xl h-24" id="banner-bottom">
+    <span class="text-brand-500 font-semibold text-sm">📢 Баннер 728×90</span>
+    <span class="text-xs text-brand-400 mt-1">Нижний баннер</span>
+  </a>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer class="footer-bg pt-12 pb-6 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+
+      <!-- Brand -->
+      <div class="col-span-2 md:col-span-1">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/15">
+            <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:#fff">M</span>
+          </div>
+          <div>
+            <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#fff">MyCareer</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#f59e0b">.az</span>
+          </div>
+        </div>
+        <p class="text-blue-300 text-sm mb-4" data-i18n="footer.desc">Ведущий сайт поиска работы в Азербайджане. Тысячи вакансий и резюме в Баку и регионах.</p>
+        <div class="flex gap-3">
+          <a href="#" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors text-white text-xs font-bold">In</a>
+          <a href="#" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors text-white text-xs font-bold">Tg</a>
+          <a href="#" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors text-white text-xs font-bold">fb</a>
+          <a href="#" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors text-white text-xs font-bold">Ig</a>
+        </div>
+      </div>
+
+      <!-- Soiskatelyam -->
+      <div>
+        <h4 class="text-white font-semibold font-display text-sm mb-4" data-i18n="footer.jobseekers">Соискателям</h4>
+        <ul class="flex flex-col gap-2">
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.searchJob">Поиск вакансий</a></li>
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.createResume">Создать резюме</a></li>
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.salaries">Зарплаты</a></li>
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.career">Карьерный рост</a></li>
+        </ul>
+      </div>
+
+      <!-- Rabotodatelyam -->
+      <div>
+        <h4 class="text-white font-semibold font-display text-sm mb-4" data-i18n="footer.employers">Работодателям</h4>
+        <ul class="flex flex-col gap-2">
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.postVacancy">Разместить вакансию</a></li>
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.searchResumes">Поиск резюме</a></li>
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.pricing">Тарифы</a></li>
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.vip">VIP реклама</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h4 class="text-white font-semibold font-display text-sm mb-4" data-i18n="footer.company">Компания</h4>
+        <ul class="flex flex-col gap-2">
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.about">О нас</a></li>
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.blog">Блог</a></li>
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.contacts">Контакты</a></li>
+          <li><a href="#" class="text-blue-300 hover:text-white text-sm transition-colors" data-i18n="footer.privacy">Конфиденциальность</a></li>
+        </ul>
+        <!-- Contact -->
+        <div class="mt-4 text-blue-300 text-sm">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.07 11 19.79 19.79 0 011 2.4 2 2 0 012.96.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 7.91a16 16 0 006.29 6.29l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            +994 (12) 000-00-00
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+            info@mycareer.az
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-white/10 pt-5 flex flex-col md:flex-row justify-between items-center gap-3">
+      <p class="text-blue-400 text-xs" data-i18n="footer.copy">© 2024 MyCareer.az — Все права защищены</p>
+      <div class="flex gap-4">
+        <a href="#" class="text-blue-400 hover:text-white text-xs transition-colors" data-i18n="footer.terms">Пользовательское соглашение</a>
+        <a href="#" class="text-blue-400 hover:text-white text-xs transition-colors" data-i18n="footer.privacy2">Политика конфиденциальности</a>
+        <a href="#" class="text-blue-400 hover:text-white text-xs transition-colors" data-i18n="footer.sitemap">Карта сайта</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════
+     TOAST NOTIFICATION
+════════════════════════════════════════════════════════════ -->
+<div id="toast" class="fixed bottom-5 right-5 z-[999] flex flex-col gap-2 pointer-events-none"></div>
+
+<!-- ════════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════ -->
+<script>
+/* ═══════════════════════════════════════════════════
+   1. TRANSLATION SYSTEM (i18n)
+   Supports: ru (Russian) and az (Azerbaijani)
+═══════════════════════════════════════════════════ */
+const translations = {
+  ru: {
+    'nav.vacancies':    'Вакансии',
+    'nav.resumes':      'Резюме',
+    'nav.companies':    'Компании',
+    'nav.blog':         'Статьи',
+    'nav.pricing':      'Тарифы',
+    'nav.login':        'Войти',
+    'nav.post':         '+ Разместить',
+    'hero.tag':         'Азербайджан №1 сайт поиска работы',
+    'hero.h1a':         'Найдите работу',
+    'hero.h1b':         'мечты в Баку',
+    'hero.sub':         'Тысячи вакансий и резюме. Быстрый поиск, лёгкий отклик.',
+    'hero.popular':     'Популярное:',
+    'search.btn':       'Найти',
+    'search.allCats':   'Все категории',
+    'search.allCities': 'Весь Азербайджан',
+    'stats.vacancies':  'Активных вакансий',
+    'stats.resumes':    'Резюме',
+    'stats.companies':  'Компаний',
+    'stats.users':      'Зарегистрированных',
+    'cats.label':       'Категории',
+    'cats.h2':          'Поиск по категориям',
+    'tab.vacancies':    'Вакансии',
+    'tab.resumes':      'Резюме',
+    'vip.label':        'VIP объявления',
+    'boosted.label':    'Поднятые объявления',
+    'latest.label':     'Последние вакансии',
+    'latest.all':       'Смотреть все →',
+    'latest.resumes':   'Последние резюме',
+    'vip.resumesLabel': 'VIP Резюме',
+    'vip.resumesH2':    'Лучшие кандидаты',
+    'all.resumes':      'Все резюме',
+    'companies.label':  'Работодатели',
+    'companies.h2':     'Топ компании',
+    'companies.all':    'Все компании →',
+    'blog.label':       'Статьи и новости',
+    'blog.h2':          'Карьерный блог',
+    'blog.all':         'Все статьи →',
+    'app.h2':           'Скачайте приложение',
+    'app.sub':          'Ищите работу прямо с телефона — на азербайджанском и русском',
+    'footer.desc':      'Ведущий сайт поиска работы в Азербайджане.',
+    'footer.jobseekers':'Соискателям',
+    'footer.employers': 'Работодателям',
+    'footer.company':   'Компания',
+    'footer.copy':      '© 2024 MyCareer.az — Все права защищены',
+    'filter.all':       'Все типы',
+    'filter.full':      'Полный день',
+    'filter.part':      'Неполный день',
+    'filter.remote':    'Удалённо',
+    'filter.contract':  'Контракт',
+    'filter.salaryAny': 'Любая зарплата',
+    'filter.dateAny':   'Любое время',
+    'filter.today':     'Сегодня',
+    'filter.week':      'За неделю',
+    'filter.month':     'За месяц',
+    'filter.apply':     'Применить',
+    'sidebar.useful':   'Полезные ссылки',
+    'sidebar.howResume':'Как составить резюме',
+    'sidebar.salaryBaku':'Зарплаты в Баку',
+    'sidebar.interview':'Советы по собеседованию',
+  },
+  az: {
+    'nav.vacancies':    'Vakansiyalar',
+    'nav.resumes':      'CV-lər',
+    'nav.companies':    'Şirkətlər',
+    'nav.blog':         'Məqalələr',
+    'nav.pricing':      'Tariflər',
+    'nav.login':        'Daxil ol',
+    'nav.post':         '+ Elan ver',
+    'hero.tag':         'Azərbaycanın №1 iş axtarış saytı',
+    'hero.h1a':         'Bakıda iş',
+    'hero.h1b':         'tapın!',
+    'hero.sub':         'Minlərlə vakansiya və CV. Sürətli axtarış, asan müraciət.',
+    'hero.popular':     'Populyar:',
+    'search.btn':       'Axtar',
+    'search.allCats':   'Bütün kateqoriyalar',
+    'search.allCities': 'Bütün Azərbaycan',
+    'stats.vacancies':  'Aktiv vakansiya',
+    'stats.resumes':    'CV',
+    'stats.companies':  'Şirkət',
+    'stats.users':      'Qeydiyyatlı istifadəçi',
+    'cats.label':       'Kateqoriyalar',
+    'cats.h2':          'Kateqoriyaya görə axtar',
+    'tab.vacancies':    'Vakansiyalar',
+    'tab.resumes':      'CV-lər',
+    'vip.label':        'VIP elanlar',
+    'boosted.label':    'Yüksəldilmiş elanlar',
+    'latest.label':     'Son vakansiyalar',
+    'latest.all':       'Hamısına bax →',
+    'latest.resumes':   'Son CV-lər',
+    'vip.resumesLabel': 'VIP CV-lər',
+    'vip.resumesH2':    'Ən yaxşı namizədlər',
+    'all.resumes':      'Bütün CV-lər',
+    'companies.label':  'İşəgötürənlər',
+    'companies.h2':     'Top şirkətlər',
+    'companies.all':    'Bütün şirkətlər →',
+    'blog.label':       'Məqalə və xəbərlər',
+    'blog.h2':          'Karyera bloqu',
+    'blog.all':         'Bütün məqalələr →',
+    'app.h2':           'Tətbiqi yükləyin',
+    'app.sub':          'Telefonda iş axtarın — Azərbaycan və rus dilində',
+    'footer.desc':      'Azərbaycanda aparıcı iş axtarış saytı.',
+    'footer.jobseekers':'İş axtaranlara',
+    'footer.employers': 'İşəgötürənlərə',
+    'footer.company':   'Şirkət',
+    'footer.copy':      '© 2024 MyCareer.az — Bütün hüquqlar qorunur',
+    'filter.all':       'Bütün növlər',
+    'filter.full':      'Tam iş günü',
+    'filter.part':      'Natamam iş günü',
+    'filter.remote':    'Uzaqdan',
+    'filter.contract':  'Müqavilə',
+    'filter.salaryAny': 'İstənilən maaş',
+    'filter.dateAny':   'İstənilən vaxt',
+    'filter.today':     'Bu gün',
+    'filter.week':      'Bu həftə',
+    'filter.month':     'Bu ay',
+    'filter.apply':     'Tətbiq et',
+    'sidebar.useful':   'Faydalı linklər',
+    'sidebar.howResume':'CV necə yazılır',
+    'sidebar.salaryBaku':'Bakıda maaşlar',
+    'sidebar.interview':'Müsahibə məsləhətləri',
+  }
+};
+
+let currentLang = 'ru';
+
+function switchLang(lang) {
+  currentLang = lang;
+  // Update active button
+  document.getElementById('lang-ru').classList.toggle('active', lang === 'ru');
+  document.getElementById('lang-az').classList.toggle('active', lang === 'az');
+  // Translate all elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key]) el.textContent = translations[lang][key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (lang === 'az') el.placeholder = 'Vəzifə, şirkət, açar söz...';
+    else el.placeholder = 'Должность, компания, ключевое слово...';
+  });
+  document.documentElement.lang = lang;
+  showToast(lang === 'az' ? 'Dil dəyişdirildi: Azərbaycan' : 'Язык изменён: Русский', 'success');
+}
+
+
+/* ═══════════════════════════════════════════════════
+   2. DATA LAYER
+   Mock data arrays for vacancies, resumes, companies, blog.
+═══════════════════════════════════════════════════ */
+const CATEGORIES = [
+  { icon:'💻', name:'IT / Технологии',      count: 1240 },
+  { icon:'💰', name:'Финансы / Банк',        count:  890 },
+  { icon:'📢', name:'Маркетинг',             count:  560 },
+  { icon:'🏗️', name:'Строительство',         count:  730 },
+  { icon:'🏥', name:'Медицина',              count:  420 },
+  { icon:'📚', name:'Образование',           count:  380 },
+  { icon:'🚗', name:'Логистика',             count:  610 },
+  { icon:'🛒', name:'Торговля / Продажи',    count: 1100 },
+  { icon:'⚖️', name:'Юриспруденция',        count:  230 },
+  { icon:'🎨', name:'Дизайн',               count:  310 },
+  { icon:'👷', name:'Производство',          count:  870 },
+  { icon:'🍽️', name:'Туризм / Рестораны',   count:  290 },
+];
+
+const COMPANIES = [
+  { name:'BP Azerbaijan',   letter:'B', color:'#0066a1', jobs: 24 },
+  { name:'SOCAR',           letter:'S', color:'#d0000e', jobs: 61 },
+  { name:'Kapital Bank',    letter:'K', color:'#004b87', jobs: 18 },
+  { name:'ABB Bank',        letter:'A', color:'#00a651', jobs: 12 },
+  { name:'Bakcell',         letter:'B', color:'#ff6600', jobs: 9  },
+  { name:'Azercell',        letter:'A', color:'#e4002b', jobs: 15 },
+  { name:'Pasha Holding',   letter:'P', color:'#1a1a2e', jobs: 33 },
+  { name:'Nar Mobile',      letter:'N', color:'#9d1c7e', jobs: 7  },
+  { name:'Silk Way Airlines',letter:'S',color:'#004d9f', jobs: 11 },
+  { name:'PASHA Bank',      letter:'P', color:'#006400', jobs: 8  },
+  { name:'Bravo',           letter:'B', color:'#e63946', jobs: 4  },
+  { name:'Fair',            letter:'F', color:'#2a9d8f', jobs: 6  },
+];
+
+const JOBS_VIP = [
+  { id:1, title:'Senior Frontend Developer', company:'BP Azerbaijan', city:'Баку', salary:'3000–5000 AZN', type:'Полный день', tags:['React','TypeScript','Remote OK'], logo:'B', color:'#0066a1', date:'сегодня', views:421, liked:false },
+  { id:2, title:'Финансовый директор (CFO)', company:'SOCAR',         city:'Баку', salary:'5000+ AZN',     type:'Полный день', tags:['Финансы','МСФО','Стратегия'],    logo:'S', color:'#d0000e', date:'вчера',   views:318, liked:false },
+  { id:3, title:'Менеджер по продажам',      company:'Kapital Bank',  city:'Баку', salary:'1200–2000 AZN', type:'Полный день', tags:['Банк','CRM','B2B'],              logo:'K', color:'#004b87', date:'сегодня', views:203, liked:false },
+];
+
+const JOBS_BOOSTED = [
+  { id:4, title:'UX/UI Designer',            company:'Pasha Holding',  city:'Баку', salary:'1500–2500 AZN', type:'Полный день', tags:['Figma','Mobile','Web'],          logo:'P', color:'#1a1a2e', date:'2 дня назад', views:167, liked:false },
+  { id:5, title:'Python Backend Developer',  company:'Bakcell',        city:'Баку', salary:'2500–4000 AZN', type:'Удалённо',    tags:['Python','Django','PostgreSQL'],  logo:'B', color:'#ff6600', date:'3 дня назад', views:289, liked:false },
+];
+
+const JOBS_LATEST = [
+  { id:6,  title:'Бухгалтер',               company:'ABB Bank',        city:'Баку', salary:'800–1200 AZN',  type:'Полный день', tags:['1C','Отчётность'],              logo:'A', color:'#00a651', date:'4 ч. назад', views:98,  liked:false },
+  { id:7,  title:'HR Manager',              company:'Azercell',         city:'Баку', salary:'1000–1800 AZN', type:'Полный день', tags:['HR','Рекрутинг','KPI'],         logo:'A', color:'#e4002b', date:'6 ч. назад', views:74,  liked:false },
+  { id:8,  title:'Водитель-экспедитор',     company:'Fair',             city:'Баку', salary:'700–900 AZN',   type:'Контракт',    tags:['Категория B','Опыт'],           logo:'F', color:'#2a9d8f', date:'8 ч. назад', views:52,  liked:false },
+  { id:9,  title:'Маркетолог (SMM)',        company:'Nar Mobile',       city:'Гянджа',salary:'900–1400 AZN', type:'Полный день', tags:['Instagram','TikTok','Контент'], logo:'N', color:'#9d1c7e', date:'1 д. назад', views:135, liked:false },
+  { id:10, title:'Инженер-строитель',       company:'SOCAR',            city:'Баку', salary:'2000–3500 AZN', type:'Полный день', tags:['AutoCAD','Проекты'],            logo:'S', color:'#d0000e', date:'1 д. назад', views:180, liked:false },
+];
+
+const RESUMES_VIP = [
+  { id:1, name:'Фарид Алиев',    title:'Senior iOS Developer', city:'Баку', salary:'4000 AZN', exp:'8 лет', tags:['Swift','iOS','Objective-C'], age:32, liked:false },
+  { id:2, name:'Нармин Гасанова',title:'Marketing Manager',    city:'Баку', salary:'2500 AZN', exp:'5 лет', tags:['Digital','SEO','Analytics'], age:28, liked:false },
+  { id:3, name:'Эмин Мамедов',   title:'DevOps Engineer',      city:'Баку', salary:'5000 AZN', exp:'6 лет', tags:['AWS','Docker','Kubernetes'],  age:35, liked:false },
+];
+
+const BLOG_POSTS = [
+  { id:1, cat:'Карьера', title:'Как написать идеальное резюме в 2024 году', desc:'Практические советы: что включать, чего избегать, и как выделиться среди сотен кандидатов.', date:'15 дек 2024', readTime:'5 мин', gradient:'from-blue-500 to-cyan-400' },
+  { id:2, cat:'Рынок труда', title:'Топ-10 самых востребованных профессий в Баку', desc:'Анализ рынка: какие специалисты нужны сегодня и на какую зарплату стоит рассчитывать.', date:'12 дек 2024', readTime:'7 мин', gradient:'from-purple-500 to-pink-400' },
+  { id:3, cat:'Собеседование', title:'7 вопросов, к которым нужно готовиться', desc:'Разбираем типичные вопросы на собеседовании и даём образцы правильных ответов.', date:'9 дек 2024', readTime:'6 мин', gradient:'from-amber-400 to-orange-500' },
+];
+
+
+/* ═══════════════════════════════════════════════════
+   3. RENDER FUNCTIONS
+   Each function generates HTML and injects into DOM.
+═══════════════════════════════════════════════════ */
+
+// Renders a single job card (VIP, boosted, or regular)
+function jobCard(job, type='normal') {
+  const vipClass  = type === 'vip'     ? 'card-vip' : '';
+  const badgeHtml = type === 'vip'
+    ? '<span class="vip-badge">⭐ VIP</span>'
+    : type === 'boosted'
+    ? '<span class="boosted-badge">🚀 Поднято</span>'
+    : '';
+
+  const tagsHtml = job.tags.map(t => `<span class="tag-chip">${t}</span>`).join(' ');
+
+  return `
+  <article class="card ${vipClass} p-4" data-job-id="${job.id}">
+    <div class="flex gap-3">
+      <!-- Company logo -->
+      <div class="logo-placeholder" style="background:linear-gradient(135deg,${job.color},${job.color}99)">
+        ${job.logo}
+      </div>
+      <!-- Content -->
+      <div class="flex-1 min-w-0">
+        <div class="flex flex-wrap items-start gap-2 mb-1">
+          <a href="mycareer.az/jobs/${job.id}-${slugify(job.title)}"
+             class="font-display font-semibold text-base text-gray-800 hover:text-brand-600 transition-colors leading-tight"
+             style="text-decoration:none">
+            ${job.title}
+          </a>
+          ${badgeHtml}
+        </div>
+        <div class="flex flex-wrap items-center gap-2 text-xs text-gray-400 mb-2">
+          <span class="text-gray-600 font-medium">${job.company}</span>
+          <span>·</span>
+          <span>${job.city}</span>
+          <span>·</span>
+          <span>${job.type}</span>
+          <span>·</span>
+          <span>${job.date}</span>
+        </div>
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-1 mb-2">${tagsHtml}</div>
+      </div>
+      <!-- Right: salary + actions -->
+      <div class="flex flex-col items-end gap-2 flex-shrink-0">
+        <div class="text-brand-700 font-bold text-sm font-display">${job.salary}</div>
+        <div class="flex gap-1 items-center">
+          <button class="like-btn ${job.liked?'liked':''}" onclick="toggleLike('job',${job.id},this)"
+            aria-label="Избранное" data-tip="В избранное">
+            <svg class="w-4 h-4" fill="${job.liked?'#ef4444':'none'}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+            </svg>
+          </button>
+          <button class="flex items-center gap-1 text-gray-400 text-xs"
+            onclick="shareJob(${job.id},'${job.title}')" data-tip="Поделиться">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+          </button>
+        </div>
+        <span class="text-xs text-gray-300 flex items-center gap-1">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+          ${job.views}
+        </span>
+      </div>
+    </div>
+  </article>`;
+}
+
+// Renders a resume card
+function resumeCard(resume, vip=false) {
+  const initials = resume.name.split(' ').map(w=>w[0]).join('').substring(0,2);
+  const tagsHtml = resume.tags.map(t=>`<span class="tag-chip">${t}</span>`).join(' ');
+  const vipClass = vip ? 'card-vip' : '';
+  const badgeHtml = vip ? '<span class="vip-badge">⭐ VIP</span>' : '';
+
+  return `
+  <article class="card ${vipClass} p-4">
+    <div class="flex gap-3 items-start">
+      <div class="logo-placeholder text-lg" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+        ${initials}
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex flex-wrap items-center gap-2 mb-1">
+          <span class="font-display font-semibold text-gray-800">${resume.name}</span>
+          ${badgeHtml}
+        </div>
+        <div class="text-brand-600 font-medium text-sm mb-1">${resume.title}</div>
+        <div class="text-xs text-gray-400 flex gap-2 mb-2">
+          <span>${resume.city}</span>·<span>${resume.exp} опыта</span>·<span>${resume.age} лет</span>
+        </div>
+        <div class="flex flex-wrap gap-1">${tagsHtml}</div>
+      </div>
+      <div class="flex flex-col items-end gap-2">
+        <div class="text-brand-700 font-bold text-sm font-display">${resume.salary}</div>
+        <button class="like-btn ${resume.liked?'liked':''}" onclick="toggleLike('resume',${resume.id},this)">
+          <svg class="w-4 h-4" fill="${resume.liked?'#ef4444':'none'}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </article>`;
+}
+
+// Renders a company badge
+function companyCard(comp) {
+  return `
+  <a href="#" class="card p-3 flex flex-col items-center gap-2 text-center hover:border-brand-300 cursor-pointer" style="text-decoration:none">
+    <div class="w-12 h-12 rounded-xl flex items-center justify-center font-display font-bold text-xl text-white"
+         style="background:linear-gradient(135deg,${comp.color},${comp.color}88)">
+      ${comp.letter}
+    </div>
+    <div class="text-xs font-semibold text-gray-700 leading-tight">${comp.name}</div>
+    <span class="text-xs text-brand-500 font-medium">${comp.jobs} ${currentLang==='az'?'vakansiya':'вакансий'}</span>
+  </a>`;
+}
+
+// Renders a blog post card
+function blogCard(post) {
+  return `
+  <article class="card overflow-hidden group cursor-pointer">
+    <div class="h-40 bg-gradient-to-br ${post.gradient} flex items-end p-4">
+      <span class="text-white text-xs font-bold bg-white/20 backdrop-blur px-2 py-1 rounded-full">${post.cat}</span>
+    </div>
+    <div class="p-4">
+      <h3 class="font-display font-bold text-gray-800 text-base mb-2 leading-snug group-hover:text-brand-600 transition-colors">${post.title}</h3>
+      <p class="text-gray-500 text-xs mb-3 leading-relaxed">${post.desc}</p>
+      <div class="flex items-center justify-between text-xs text-gray-300">
+        <span>${post.date}</span>
+        <span>📖 ${post.readTime} чтения</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+// Renders category pills
+function renderCategories() {
+  const container = document.getElementById('cat-list');
+  if (!container) return;
+  container.innerHTML = CATEGORIES.map(cat => `
+    <a href="#" class="cat-pill">
+      <span>${cat.icon}</span>
+      <span>${cat.name}</span>
+      <span class="count">${cat.count.toLocaleString()}</span>
+    </a>
+  `).join('');
+}
+
+// Renders all job lists on page load
+function renderJobs() {
+  const vipEl     = document.getElementById('vip-jobs-list');
+  const boostedEl = document.getElementById('boosted-jobs-list');
+  const latestEl  = document.getElementById('latest-jobs-list');
+  if (vipEl)     vipEl.innerHTML     = JOBS_VIP.map(j=>jobCard(j,'vip')).join('');
+  if (boostedEl) boostedEl.innerHTML = JOBS_BOOSTED.map(j=>jobCard(j,'boosted')).join('');
+  if (latestEl)  latestEl.innerHTML  = JOBS_LATEST.map(j=>jobCard(j,'normal')).join('');
+}
+
+function renderResumes() {
+  const mainEl = document.getElementById('vip-resumes-main');
+  if (mainEl) mainEl.innerHTML = RESUMES_VIP.map(r=>resumeCard(r,true)).join('');
+}
+
+function renderCompanies() {
+  const el = document.getElementById('companies-list');
+  if (el) el.innerHTML = COMPANIES.map(c=>companyCard(c)).join('');
+}
+
+function renderBlog() {
+  const el = document.getElementById('blog-list');
+  if (el) el.innerHTML = BLOG_POSTS.map(p=>blogCard(p)).join('');
+}
+
+
+/* ═══════════════════════════════════════════════════
+   4. INTERACTION HANDLERS
+═══════════════════════════════════════════════════ */
+
+// Tab switching (Vacancies / Resumes)
+function switchTab(tab, btn) {
+  document.querySelectorAll('#main-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('vacancies-panel').classList.toggle('hidden', tab !== 'vacancies');
+  document.getElementById('resumes-panel').classList.toggle('hidden', tab !== 'resumes');
+  if (tab === 'resumes') {
+    const v = document.getElementById('vip-resumes-list');
+    const l = document.getElementById('latest-resumes-list');
+    if (v && !v.children.length) v.innerHTML = RESUMES_VIP.map(r=>resumeCard(r,true)).join('');
+    if (l && !l.children.length) l.innerHTML = RESUMES_VIP.map(r=>resumeCard(r,false)).join('');
+  }
+}
+
+// Like / Favourite toggle
+const likedJobs    = new Set();
+const likedResumes = new Set();
+
+function toggleLike(type, id, btn) {
+  const set = type === 'job' ? likedJobs : likedResumes;
+  const arr = type === 'job' ? JOBS_VIP.concat(JOBS_BOOSTED,JOBS_LATEST) : RESUMES_VIP;
+  const item = arr.find(x => x.id === id);
+
+  if (set.has(id)) {
+    set.delete(id);
+    btn.classList.remove('liked');
+    if (item) item.liked = false;
+    btn.querySelector('svg').setAttribute('fill','none');
+    showToast('Удалено из избранного', 'info');
+  } else {
+    set.add(id);
+    btn.classList.add('liked');
+    if (item) item.liked = true;
+    btn.querySelector('svg').setAttribute('fill','#ef4444');
+    showToast('Добавлено в избранное ❤️', 'success');
+  }
+}
+
+// Share
+function shareJob(id, title) {
+  const url = `https://mycareer.az/jobs/${id}-${slugify(title)}`;
+  if (navigator.share) {
+    navigator.share({ title, url });
+  } else {
+    navigator.clipboard.writeText(url);
+    showToast('Ссылка скопирована: ' + url, 'success');
+  }
+}
+
+// Search
+function doSearch() {
+  const kw   = document.getElementById('search-kw').value.trim();
+  const cat  = document.getElementById('search-cat').value;
+  const city = document.getElementById('search-city').value;
+  const q = [kw, cat, city].filter(Boolean).join(', ');
+  showToast(`🔍 Поиск: ${q || 'все вакансии'}`, 'info');
+}
+
+// Filters
+function applyFilters() {
+  showToast('Фильтры применены', 'success');
+}
+
+// Pagination
+let currentPage = 1;
+function changePage(p) {
+  if (p < 1) return;
+  currentPage = p;
+  showToast(`Страница ${p}`, 'info');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Mobile menu
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+
+
+/* ═══════════════════════════════════════════════════
+   5. TOAST NOTIFICATION SYSTEM
+═══════════════════════════════════════════════════ */
+function showToast(msg, type='info') {
+  const container = document.getElementById('toast');
+  const colors = {
+    success: 'bg-emerald-600',
+    error:   'bg-red-600',
+    info:    'bg-brand-600',
+    warning: 'bg-amber-500',
+  };
+  const el = document.createElement('div');
+  el.className = `${colors[type]||colors.info} text-white text-sm font-medium px-4 py-3 rounded-xl shadow-lg pointer-events-auto flex items-center gap-2 animate-fade-up`;
+  el.style.maxWidth = '320px';
+  el.innerHTML = `<span>${msg}</span>`;
+  container.appendChild(el);
+  setTimeout(() => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(8px)';
+    el.style.transition = 'opacity .3s,transform .3s';
+    setTimeout(() => el.remove(), 300);
+  }, 3000);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   6. SCROLL ANIMATIONS (Intersection Observer)
+═══════════════════════════════════════════════════ */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+// Add staggered delay to children
+function observeReveal() {
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.06) + 's';
+    observer.observe(el);
+  });
+}
+
+
+/* ═══════════════════════════════════════════════════
+   7. NAVBAR SCROLL EFFECT
+═══════════════════════════════════════════════════ */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+}, { passive: true });
+
+
+/* ═══════════════════════════════════════════════════
+   8. ANIMATED STAT COUNTERS
+═══════════════════════════════════════════════════ */
+function animateCounter(el, target, duration=1600) {
+  let start = null;
+  const startVal = 0;
+  function step(ts) {
+    if (!start) start = ts;
+    const progress = Math.min((ts - start) / duration, 1);
+    // Ease out
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(ease * target);
+    el.textContent = current.toLocaleString('ru');
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function initCounters() {
+  const counters = document.querySelectorAll('[data-count]');
+  const co = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(e.target, parseInt(e.target.getAttribute('data-count')));
+        co.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(c => co.observe(c));
+}
+
+
+/* ═══════════════════════════════════════════════════
+   9. UTILITY: URL slug generator
+═══════════════════════════════════════════════════ */
+function slugify(str) {
+  const cyMap = {
+    'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'yo','ж':'zh','з':'z',
+    'и':'i','й':'j','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r',
+    'с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'ts','ч':'ch','ш':'sh','щ':'sch',
+    'ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya',
+    'А':'A','Б':'B','В':'V','Г':'G','Д':'D','Е':'E','З':'Z','И':'I','К':'K',
+    'Л':'L','М':'M','Н':'N','О':'O','П':'P','Р':'R','С':'S','Т':'T','У':'U',
+    'Ф':'F','Х':'H','Ц':'Ts'
+  };
+  return str.split('').map(c => cyMap[c] || c).join('')
+    .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+
+/* ═══════════════════════════════════════════════════
+   10. INIT — runs when DOM is ready
+═══════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  renderCategories();
+  renderJobs();
+  renderResumes();
+  renderCompanies();
+  renderBlog();
+  observeReveal();
+  initCounters();
+
+  // Search on Enter key
+  document.getElementById('search-kw').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doSearch();
+  });
+
+  console.log('%cMyCareer.az Frontend v1.0', 'color:#0170bf;font-weight:bold;font-size:16px');
+  console.log('%cBuilt with: HTML + Tailwind CSS + Vanilla JS', 'color:#64748b');
+});
+</script>
+
+</body>
+</html>
